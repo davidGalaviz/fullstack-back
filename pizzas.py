@@ -1,5 +1,7 @@
 from flask import Flask, request, redirect
 
+import persistencia
+
 app = Flask(__name__)
 
 
@@ -10,8 +12,6 @@ def solicitar_pizza():
 
     print(nombre + " " + apellidos)
 
-    with open("pedidos.txt", "a", encoding="utf-8") as file:
-        file.write(nombre + " " + apellidos + "\n")
-        file.close
+    persistencia.guardar_pedido(nombre, apellidos)
 
     return redirect("http://localhost/solicita_pedido.html", code=302)
